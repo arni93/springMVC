@@ -92,7 +92,7 @@ public class BookController {
 		int id = Integer.parseInt(bookId);
 		BookTo foundBook = this.bookService.findBookById(id);
 		modelAndView.addObject("book", foundBook);
-		modelAndView.setViewName("book");
+		modelAndView.setViewName(ViewNames.BOOK);
 		return modelAndView;
 	}
 
@@ -100,11 +100,20 @@ public class BookController {
 	/**
 	 * Method collects info about all books
 	 */
-	@RequestMapping("/add")
-	public ModelAndView addBook(BookTo book) {
+	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	public ModelAndView showAddBookView() {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("newBook", bookService.saveBook(book));
+		modelAndView.addObject(ModelConstants.NEW_BOOK, new BookTo());
 		modelAndView.setViewName(ViewNames.ADD_BOOK);
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public ModelAndView addBook(@ModelAttribute(ModelConstants.NEW_BOOK) BookTo newBook) {
+		this.bookService.saveBook(newBook);
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName(ViewNames.ADD_BOOK);
+		modelAndView.addObject(ModelConstants.NEW_BOOK, new BookTo());
 		return modelAndView;
 	}
 

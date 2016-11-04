@@ -18,4 +18,5 @@ public final class ModelConstants implements Serializable {
 	public static final String BOOK = "book";
 	public static final String ERROR_MESSAGE = "errorMessage";
 	public static final String FOUND_BOOK = "foundBook";
+	public static final String NEW_BOOK = "newBook";
 }
