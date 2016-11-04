@@ -9,7 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -40,40 +42,6 @@ public class BookController {
 		return ViewNames.BOOKS;
 	}
 
-	@RequestMapping("findBook")
-	public String showBookFinderView() {
-		return ViewNames.BOOK_FINDER;
-	}
-
-	@RequestMapping("findBook/findById")
-	public ModelAndView showFoundBookById(@RequestParam("id") String bookId) {
-		int id = Integer.parseInt(bookId);
-		BookTo foundBook = this.bookService.findBookById(id);
-		List<BookTo> bookList = new ArrayList<>();
-		if (foundBook != null) {
-			bookList.add(foundBook);
-		}
-		modelAndView.addObject("bookList", bookList);
-		modelAndView.setViewName(ModelConstants.BOOK_LIST);
-		return modelAndView;
-	}
-
-	@RequestMapping("findBook/findByAuthor")
-	public ModelAndView showFoundBooksByAuthor(@RequestParam("author") String author) {
-		List<BookTo> bookList = this.bookService.findBooksByAuthor(author);
-		modelAndView.addObject("bookList", bookList);
-		modelAndView.setViewName(ModelConstants.BOOK_LIST);
-		return modelAndView;
-	}
-
-	@RequestMapping("findBook/findByTitle")
-	public ModelAndView showFoundBooksbyTitle(@RequestParam("title") String title) {
-		List<BookTo> bookList = this.bookService.findBooksByTitle(title);
-		modelAndView.addObject("bookList", bookList);
-		modelAndView.setViewName(ModelConstants.BOOK_LIST);
-		return modelAndView;
-	}
-
 	/**
 	 * Method collects info about all books
 	 */
@@ -84,6 +52,35 @@ public class BookController {
 		modelAndView.addObject("bookList", allBooks);
 		modelAndView.setViewName("books");
 		// TODO: implement method gathering and displaying all books
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/findBook", method = RequestMethod.GET)
+	public String showFindBookView(Model model) {
+		model.addAttribute(ModelConstants.FOUND_BOOK, new BookTo());
+		return ViewNames.FIND_BOOK;
+	}
+
+	@RequestMapping(value = "/findBook", method = RequestMethod.POST)
+	public ModelAndView findBooks(@ModelAttribute(ModelConstants.FOUND_BOOK) final BookTo bookTo) {
+		ModelAndView modelAndView = new ModelAndView();
+		final String authors = bookTo.getAuthors();
+		final String title = bookTo.getTitle();
+		List<BookTo> booksByAuthor = this.bookService.findBooksByAuthor(bookTo.getAuthors());
+		List<BookTo> booksByTitle = this.bookService.findBooksByTitle(bookTo.getTitle());
+		if (!authors.equals("") || !title.equals("")) {
+			if (authors.equals("")) {
+				modelAndView.addObject("bookList", booksByTitle);
+			} else if (title.equals("")) {
+				modelAndView.addObject("bookList", booksByAuthor);
+			} else {
+				List<BookTo> retainedList = new ArrayList<>();
+				retainedList.addAll(booksByAuthor);
+				retainedList.retainAll(booksByTitle);
+				modelAndView.addObject("bookList", retainedList);
+			}
+		}
+		modelAndView.setViewName(ViewNames.BOOKS);
 		return modelAndView;
 	}
 
