@@ -35,6 +35,12 @@
 									class="glyphicon-info-sign glyphicon" /></span> Details
 								</a>
 							</p>
+							<p>
+								<a href=" <spring:url value="/books/delete?id=${book.id}" /> "
+									class="btn btn-primary"> <span
+									class="glyphicon-info-sign glyphicon" /></span> Delete
+								</a>
+							</p>
 
 						</div>
 					</div>

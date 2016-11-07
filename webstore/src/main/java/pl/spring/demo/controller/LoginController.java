@@ -15,7 +15,7 @@ public class LoginController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login() {
-		return "login";
+		return ViewNames.LOGIN;
 	}
 
 	@RequestMapping(value = "/loginfailed", method = RequestMethod.GET)
@@ -33,10 +33,8 @@ public class LoginController {
 	@RequestMapping(value = "/403", method = RequestMethod.GET)
 	public ModelAndView accesssDenied(Principal user) {
 		ModelAndView model = new ModelAndView();
-
-		// TODO: implement mechanism redirecting to new custom page _403
-		// (consider extending informations by custom values)
+		String errorMessage = "User : " + user.getName() + " have no permission to access page";
+		model.addObject("errorMessage", errorMessage);
 		return model;
-
 	}
 }

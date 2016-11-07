@@ -89,6 +89,7 @@ public class BookController {
 	@RequestMapping("/book")
 	public ModelAndView showBookDetails(@RequestParam("id") String bookId) {
 		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("description", "book info");
 		int id = Integer.parseInt(bookId);
 		BookTo foundBook = this.bookService.findBookById(id);
 		modelAndView.addObject("book", foundBook);
@@ -114,6 +115,17 @@ public class BookController {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName(ViewNames.ADD_BOOK);
 		modelAndView.addObject(ModelConstants.NEW_BOOK, new BookTo());
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView deleteBook(@RequestParam("id") long bookId) {
+		ModelAndView modelAndView = new ModelAndView();
+		BookTo removedBook = this.bookService.findBookById(bookId);
+		this.bookService.deleteBook(bookId);
+		modelAndView.addObject("description", "Removed book info");
+		modelAndView.addObject("book", removedBook);
+		modelAndView.setViewName(ViewNames.BOOK);
 		return modelAndView;
 	}
 

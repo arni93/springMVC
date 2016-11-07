@@ -13,7 +13,7 @@
 	<section>
 		<div class="jumbotron">
 			<div class="container">
-				<h1>Book info</h1>
+				<h1>${description}</h1>
 			</div>
 		</div>
 	</section>

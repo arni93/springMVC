@@ -15,6 +15,14 @@
 		<security:logout logout-success-url="/logout" />
 		<security:access-denied-handler
 			error-page="/403" />
+
+		<security:intercept-url pattern="/books/delete"
+			access="ROLE_LIB" />
+		<security:form-login login-page="/login"
+			default-target-url="/books/delete" authentication-failure-url="/loginfailed" />
+		<security:logout logout-success-url="/logout" />
+		<security:access-denied-handler
+			error-page="/403" />
 	</security:http>
 
 	<security:authentication-manager>
@@ -24,6 +32,8 @@
 					authorities="ROLE_ADMIN" />
 				<security:user name="user" password="user"
 					authorities="ROLE_USER" />
+				<security:user name="librarian" password="librarian"
+					authorities="ROLE_LIB" />
 			</security:user-service>
 		</security:authentication-provider>
 	</security:authentication-manager>
