@@ -20,15 +20,18 @@ public class UserEntity implements Serializable {
 	private String userName;
 	@Column(nullable = false, length = 200)
 	private String password;
+	@Column(nullable = false, length = 50)
+	private String role;
 
 	// for hibernate
 	protected UserEntity() {
 	}
 
-	public UserEntity(Long id, String user, String password) {
+	public UserEntity(Long id, String user, String password, String role) {
 		this.id = id;
 		this.userName = user;
 		this.password = password;
+		this.role = role;
 	}
 
 	public Long getId() {
@@ -53,5 +56,13 @@ public class UserEntity implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 }
