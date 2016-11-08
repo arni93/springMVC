@@ -1,6 +1,5 @@
 package pl.spring.demo.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -87,24 +86,9 @@ public class BookController {
 	 */
 	@RequestMapping(value = "/findBook", method = RequestMethod.POST)
 	public ModelAndView findBooks(@ModelAttribute(ModelConstants.FOUND_BOOK) final BookTo bookTo) {
-		// TODO refactor to service method
 		ModelAndView modelAndView = new ModelAndView();
-		final String authors = bookTo.getAuthors();
-		final String title = bookTo.getTitle();
-		List<BookTo> booksByAuthor = this.bookService.findBooksByAuthor(bookTo.getAuthors());
-		List<BookTo> booksByTitle = this.bookService.findBooksByTitle(bookTo.getTitle());
-		if (!authors.equals("") || !title.equals("")) {
-			if (authors.equals("")) {
-				modelAndView.addObject("bookList", booksByTitle);
-			} else if (title.equals("")) {
-				modelAndView.addObject("bookList", booksByAuthor);
-			} else {
-				List<BookTo> retainedList = new ArrayList<>();
-				retainedList.addAll(booksByAuthor);
-				retainedList.retainAll(booksByTitle);
-				modelAndView.addObject("bookList", retainedList);
-			}
-		}
+		List<BookTo> foundBooks = this.bookService.findBooksByParams(bookTo);
+		modelAndView.addObject("bookList", foundBooks);
 		modelAndView.setViewName(ViewNames.BOOKS);
 		return modelAndView;
 	}
