@@ -1,7 +1,6 @@
 package pl.spring.demo.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,7 +30,6 @@ public class BookController {
 
 	@Autowired
 	private BookService bookService;
-	private ModelAndView modelAndView;
 
 	/**
 	 * default page for default URL
@@ -40,11 +38,10 @@ public class BookController {
 	 *            model in MVC controller that contains data
 	 * @return logic name of view to display
 	 */
-	@RequestMapping
+	@RequestMapping()
 	public String list(Model model) {
-		modelAndView = this.allBooks();
-		Map<String, Object> copiedModel = modelAndView.getModel();
-		model.addAllAttributes(copiedModel);
+		List<BookTo> allBooks = bookService.findAllBooks();
+		model.addAttribute(ModelConstants.BOOK_LIST, allBooks);
 		return ViewNames.BOOKS;
 	}
 
@@ -53,12 +50,12 @@ public class BookController {
 	 * 
 	 * @return data to display on page and logic name of page to display
 	 */
-	@RequestMapping("/all")
+	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public ModelAndView allBooks() {
 		ModelAndView modelAndView = new ModelAndView();
 		List<BookTo> allBooks = bookService.findAllBooks();
-		modelAndView.addObject("bookList", allBooks);
-		modelAndView.setViewName("books");
+		modelAndView.addObject(ModelConstants.BOOK_LIST, allBooks);
+		modelAndView.setViewName(ViewNames.BOOKS);
 		return modelAndView;
 	}
 
@@ -88,7 +85,7 @@ public class BookController {
 	public ModelAndView findBooks(@ModelAttribute(ModelConstants.FOUND_BOOK) final BookTo bookTo) {
 		ModelAndView modelAndView = new ModelAndView();
 		List<BookTo> foundBooks = this.bookService.findBooksByParams(bookTo);
-		modelAndView.addObject("bookList", foundBooks);
+		modelAndView.addObject(ModelConstants.BOOK_LIST, foundBooks);
 		modelAndView.setViewName(ViewNames.BOOKS);
 		return modelAndView;
 	}
@@ -104,10 +101,10 @@ public class BookController {
 	@RequestMapping("/book")
 	public ModelAndView showBookDetails(@RequestParam("id") String bookId) {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("description", "book info");
+		modelAndView.addObject(ModelConstants.DESCRIPTION, "book info");
 		int id = Integer.parseInt(bookId);
 		BookTo foundBook = this.bookService.findBookById(id);
-		modelAndView.addObject("book", foundBook);
+		modelAndView.addObject(ModelConstants.BOOK, foundBook);
 		modelAndView.setViewName(ViewNames.BOOK);
 		return modelAndView;
 	}
@@ -155,8 +152,8 @@ public class BookController {
 		ModelAndView modelAndView = new ModelAndView();
 		BookTo removedBook = this.bookService.findBookById(bookId);
 		this.bookService.deleteBook(bookId);
-		modelAndView.addObject("description", "Removed book info");
-		modelAndView.addObject("book", removedBook);
+		modelAndView.addObject(ModelConstants.DESCRIPTION, "Removed book info");
+		modelAndView.addObject(ModelConstants.BOOK, removedBook);
 		modelAndView.setViewName(ViewNames.BOOK);
 		return modelAndView;
 	}

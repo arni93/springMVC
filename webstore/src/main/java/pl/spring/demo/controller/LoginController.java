@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import pl.spring.demo.constants.ModelConstants;
 import pl.spring.demo.constants.ViewNames;
 
 /**
@@ -38,7 +39,7 @@ public class LoginController {
 	 */
 	@RequestMapping(value = "/loginfailed", method = RequestMethod.GET)
 	public String loginerror(Model model) {
-		model.addAttribute("error", "true");
+		model.addAttribute(ModelConstants.ERROR, "true");
 		return ViewNames.LOGIN;
 
 	}
@@ -63,10 +64,11 @@ public class LoginController {
 	 * @return model with data in in and logical view name to display
 	 */
 	@RequestMapping(value = "/403", method = RequestMethod.GET)
-	public ModelAndView accesssDenied(Principal user) {
+	public ModelAndView accessDenied(Principal user) {
 		ModelAndView model = new ModelAndView();
 		String errorMessage = "User : " + user.getName() + " have no permission to access page";
-		model.addObject("errorMessage", errorMessage);
+		model.addObject(ModelConstants.ERROR_MESSAGE, errorMessage);
+		// model.setViewName(ViewNames._403);
 		return model;
 	}
 }
