@@ -7,6 +7,7 @@ import javax.persistence.TypedQuery;
 import pl.spring.demo.dao.UserDao;
 import pl.spring.demo.entity.UserEntity;
 
+//TODO(mmotowid) add java docs
 public class UserDaoImpl extends AbstractDao<UserEntity, Long> implements UserDao {
 
 	@Override

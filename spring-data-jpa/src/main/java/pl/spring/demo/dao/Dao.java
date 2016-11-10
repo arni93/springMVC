@@ -3,25 +3,26 @@ package pl.spring.demo.dao;
 import java.io.Serializable;
 import java.util.List;
 
+//TODO(mmotowid) add java docs
 public interface Dao<T, K extends Serializable> {
 
-    T save(T entity);
+	T save(T entity);
 
-    T getOne(K id);
+	T getOne(K id);
 
-    T findOne(K id);
+	T findOne(K id);
 
-    List<T> findAll();
+	List<T> findAll();
 
-    T update(T entity);
+	T update(T entity);
 
-    void delete(T entity);
+	void delete(T entity);
 
-    void delete(K id);
+	void delete(K id);
 
-    void deleteAll();
+	void deleteAll();
 
-    long count();
+	long count();
 
-    boolean exists(K id);
+	boolean exists(K id);
 }

@@ -32,6 +32,12 @@ import pl.spring.demo.enumerations.BookStatus;
 import pl.spring.demo.service.BookService;
 import pl.spring.demo.to.BookTo;
 
+/**
+ * Tests BookController
+ * 
+ * @author AWOZNICA
+ *
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "controller-test-configuration.xml")
 @WebAppConfiguration
@@ -47,8 +53,8 @@ public class BookControllerTest {
 		Mockito.reset(bookService);
 
 		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-		viewResolver.setPrefix("/WEB-INF/views/");
-		viewResolver.setSuffix(".jsp");
+		viewResolver.setPrefix("/WEB-INF/views/"); // can be default
+		viewResolver.setSuffix(".jsp"); // can be default
 
 		BookController bookController = new BookController();
 		mockMvc = MockMvcBuilders.standaloneSetup(bookController).setViewResolvers(viewResolver).build();
@@ -58,6 +64,12 @@ public class BookControllerTest {
 		ReflectionTestUtils.setField(bookController, "bookService", bookService);
 	}
 
+	/**
+	 * tests method with declaration below
+	 * 
+	 * @see @RequestMapping(value = "/add", method = RequestMethod.GET) public
+	 *      ModelAndView showAddBookView()
+	 */
 	@Test
 	public void testAddBookPage() throws Exception {
 		// given
@@ -76,6 +88,11 @@ public class BookControllerTest {
 				}));
 	}
 
+	/**
+	 * tests method with declaration below
+	 * 
+	 * @see @RequestMapping() public String list(Model model)
+	 */
 	@Test
 	public void testDefaultViewPage() throws Exception {
 		// given
@@ -99,6 +116,12 @@ public class BookControllerTest {
 
 	}
 
+	/**
+	 * tests method with declaration below
+	 * 
+	 * @see @RequestMapping(value = "/all", method = RequestMethod.GET) public
+	 *      ModelAndView allBooks()
+	 */
 	@Test
 	public void testShowAllBooks() throws Exception {
 		// given
@@ -121,6 +144,12 @@ public class BookControllerTest {
 				}));
 	}
 
+	/**
+	 * tests method with declaration below
+	 * 
+	 * @see @RequestMapping(value = "/findBook", method = RequestMethod.GET)
+	 *      public String showFindBookView(Model model)
+	 */
 	@Test
 	public void testShowFindBookView() throws Exception {
 		// given
@@ -132,6 +161,13 @@ public class BookControllerTest {
 				.andExpect(model().attribute(ModelConstants.FOUND_BOOK, emptyBook));
 	}
 
+	/**
+	 * tests method with declaration below
+	 * 
+	 * @see @RequestMapping(value = "/findBook", method = RequestMethod.POST)
+	 *      public ModelAndView findBooks(@ModelAttribute(ModelConstants.
+	 *      FOUND_BOOK)
+	 */
 	@Test
 	public void testShowFoundBooks() throws Exception {
 		// given
@@ -155,6 +191,12 @@ public class BookControllerTest {
 				}));
 	}
 
+	/**
+	 * tests method with declaration below
+	 * 
+	 * @see @RequestMapping("/book") public ModelAndView
+	 *      showBookDetails(@RequestParam("id") String bookId)
+	 */
 	@Test
 	public void testShowBookDetailsView() throws Exception {
 		// given
@@ -169,6 +211,12 @@ public class BookControllerTest {
 				.andExpect(model().attribute(ModelConstants.BOOK, givenBook));
 	}
 
+	/**
+	 * tests method with declaration below
+	 * 
+	 * @see @RequestMapping(value = "/add", method = RequestMethod.GET) public
+	 *      ModelAndView showAddBookView()
+	 */
 	@Test
 	public void testShowAddBookView() throws Exception {
 		// given
@@ -180,6 +228,13 @@ public class BookControllerTest {
 				.andExpect(model().attribute(ModelConstants.NEW_BOOK, expectedBook));
 	}
 
+	/**
+	 * tests method with declaration below
+	 * 
+	 * @see @RequestMapping(value = "/add", method = RequestMethod.POST) public
+	 *      ModelAndView addBook(@ModelAttribute(ModelConstants.NEW_BOOK) BookTo
+	 *      newBook)
+	 */
 	@Test
 	public void testAddBook() throws Exception {
 		// given
@@ -194,6 +249,12 @@ public class BookControllerTest {
 
 	}
 
+	/**
+	 * tests method with declaration below
+	 * 
+	 * @see @RequestMapping(value = "/delete", method = RequestMethod.GET)
+	 *      public ModelAndView deleteBook(@RequestParam("id") long bookId)
+	 */
 	@Test
 	public void testDeleteBook() throws Exception {
 		// given

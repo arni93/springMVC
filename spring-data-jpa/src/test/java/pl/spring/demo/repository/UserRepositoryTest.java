@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import pl.spring.demo.entity.UserEntity;
 
+//TODO(mmotowid) add java docs
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "CommonRepositoryTest-context.xml")
 public class UserRepositoryTest {

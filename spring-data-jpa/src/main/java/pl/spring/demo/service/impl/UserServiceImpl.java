@@ -12,6 +12,7 @@ import pl.spring.demo.repository.UserRepository;
 import pl.spring.demo.service.UserService;
 import pl.spring.demo.to.UserTo;
 
+//TODO(mmotowid) add java docs
 @Service
 @Transactional(readOnly = true)
 public class UserServiceImpl implements UserService {

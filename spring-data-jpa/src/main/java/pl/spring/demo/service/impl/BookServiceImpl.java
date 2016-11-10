@@ -13,10 +13,7 @@ import pl.spring.demo.repository.BookRepository;
 import pl.spring.demo.service.BookService;
 import pl.spring.demo.to.BookTo;
 
-/**
- * @author AWOZNICA
- *
- */
+//TODO(mmotowid) add java docs
 @Service
 @Transactional(readOnly = true)
 public class BookServiceImpl implements BookService {

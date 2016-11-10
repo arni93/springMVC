@@ -30,6 +30,12 @@ public class LoginControllerTest {
 		mockMvc = MockMvcBuilders.standaloneSetup(new LoginController()).setViewResolvers(viewResolver).build();
 	}
 
+	/**
+	 * tests method with declaration below
+	 * 
+	 * @see @RequestMapping(value = "/login", method = RequestMethod.GET) public
+	 *      String login()
+	 */
 	@Test
 	public void testShowLoginPage() throws Exception {
 		// when
@@ -38,6 +44,12 @@ public class LoginControllerTest {
 		resultActions.andExpect(view().name(ViewNames.LOGIN));
 	}
 
+	/**
+	 * tests method with declaration below
+	 * 
+	 * @see @RequestMapping(value = "/loginfailed", method = RequestMethod.GET)
+	 *      public String loginerror(Model model)
+	 */
 	@Test
 	public void testLoginError() throws Exception {
 		// when
@@ -47,6 +59,12 @@ public class LoginControllerTest {
 				.andExpect(model().attribute(ModelConstants.ERROR, "true"));
 	}
 
+	/**
+	 * tests method with declaration below
+	 * 
+	 * @see @RequestMapping(value = "/logout", method = RequestMethod.GET)
+	 *      public String logout(Model model)
+	 */
 	@Test
 	public void testLogout() throws Exception {
 		// when
@@ -55,6 +73,12 @@ public class LoginControllerTest {
 		resultActions.andExpect(view().name(ViewNames.LOGIN));
 	}
 
+	/**
+	 * tests method with declaration below
+	 * 
+	 * @see @RequestMapping(value = "/403", method = RequestMethod.GET) public
+	 *      ModelAndView accessDenied(Principal user)
+	 */
 	@Test
 	public void testAccessDenied() throws Exception {
 		// when

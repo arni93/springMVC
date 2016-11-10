@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import pl.spring.demo.entity.UserEntity;
 import pl.spring.demo.to.UserTo;
 
+//TODO(mmotowid) add java docs
 public class UserMapper {
 
 	public static UserTo map(UserEntity userEntity) {

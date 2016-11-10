@@ -3,7 +3,8 @@ package pl.spring.demo.constants;
 import java.io.Serializable;
 
 /**
- * Class containing constants for Model
+ * Class containing view names for Model, names means files in
+ * src/main/webapp/WEB-INF/views/
  * 
  * @author mmotowid
  *

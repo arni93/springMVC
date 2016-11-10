@@ -15,18 +15,10 @@ import pl.spring.demo.to.BookTo;
 @ResponseBody
 public class BookRestService {
 
-	// TODO: Inject properly book service
-
 	@RequestMapping(value = "/rest/books", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<BookTo> getBook() {
 		BookTo currentBook = new BookTo(1L, "title", "author", null);
 		currentBook.setStatus(BookStatus.FREE);
 		return new ResponseEntity<BookTo>(currentBook, HttpStatus.OK);
 	}
-
-	// TODO: implement all necessary CRUD operations as a rest service
-
-	// TODO: implement some search methods considering single request parameters
-	// / multiple request parameters / array request parameters
-
 }

@@ -11,6 +11,7 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -32,7 +33,7 @@ import pl.spring.demo.web.utils.FileUtils;
 @WebAppConfiguration
 public class BookRestServiceTest {
 
-	@Autowired
+	@Mock
 	private BookService bookService;
 	@Autowired
 	private WebApplicationContext wac;

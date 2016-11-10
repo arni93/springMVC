@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import pl.spring.demo.entity.UserEntity;
 
+//TODO(mmotowid) add java docs
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
 	@Query("select user from UserEntity user where upper(user.userName) like concat(upper(:name), '%')")

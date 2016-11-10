@@ -3,7 +3,8 @@ package pl.spring.demo.constants;
 import java.io.Serializable;
 
 /**
- * Class containing constants for Model
+ * Class containing constants for Model, these are model atributes and
+ * parameters in files in directory src/main/webapp/WEB-INF/views/
  * 
  * @author mmotowid
  *

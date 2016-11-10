@@ -28,6 +28,11 @@ public class HomeControllerTest {
 		mockMvc = MockMvcBuilders.standaloneSetup(new HomeController()).setViewResolvers(viewResolver).build();
 	}
 
+	/**
+	 * test method with declaration below
+	 * 
+	 * @see @RequestMapping("/") public String welcome(Model model)
+	 */
 	@Test
 	public void testHomePage() throws Exception {
 		// given when
