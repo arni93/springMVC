@@ -7,19 +7,27 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
-	<security:http auto-config="true">
+	<security:http auto-config="true" use-expressions="true">
 		<security:intercept-url pattern="/books/add"
-			access="ROLE_ADMIN" />
-		<security:form-login login-page="/login"
-			default-target-url="/books/add" authentication-failure-url="/loginfailed" />
+			access="hasRole('ROLE_ADMIN')" />
+		<security:form-login
+			login-page="/login"
+			default-target-url="/books/add"
+			authentication-failure-url="/loginfailed" 
+			username-parameter = "j_username"
+			password-parameter = "j_password"/>
 		<security:logout logout-success-url="/logout" />
 		<security:access-denied-handler
 			error-page="/403" />
 
 		<security:intercept-url pattern="/books/delete"
-			access="ROLE_LIB" />
-		<security:form-login login-page="/login"
-			default-target-url="/books/delete" authentication-failure-url="/loginfailed" />
+			access="hasRole('ROLE_LIB')" />
+		<security:form-login
+			login-page="/login"
+			default-target-url="/books/delete"
+			authentication-failure-url="/loginfailed" 
+			username-parameter = "j_username"
+			password-parameter = "j_password"/>
 		<security:logout logout-success-url="/logout" />
 		<security:access-denied-handler
 			error-page="/403" />
@@ -27,14 +35,10 @@
 
 	<security:authentication-manager>
 		<security:authentication-provider>
-			<security:user-service>
-				<security:user name="admin" password="admin"
-					authorities="ROLE_ADMIN" />
-				<security:user name="user" password="user"
-					authorities="ROLE_USER" />
-				<security:user name="librarian" password="librarian"
-					authorities="ROLE_LIB" />
-			</security:user-service>
+			<security:jdbc-user-service
+				data-source-ref="dataSource"
+				users-by-username-query="select user_name , password, 'true' as enabled from userentity where user_name = ?"
+				authorities-by-username-query="select user_name, role from userroles where user_name = ?" />
 		</security:authentication-provider>
 	</security:authentication-manager>
 

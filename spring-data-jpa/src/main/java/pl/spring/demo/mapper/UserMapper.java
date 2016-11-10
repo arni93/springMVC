@@ -11,15 +11,14 @@ public class UserMapper {
 
 	public static UserTo map(UserEntity userEntity) {
 		if (userEntity != null) {
-			return new UserTo(userEntity.getId(), userEntity.getUserName(), userEntity.getPassword(),
-					userEntity.getRole());
+			return new UserTo(userEntity.getId(), userEntity.getUserName(), userEntity.getPassword());
 		}
 		return null;
 	}
 
 	public static UserEntity map(UserTo userTo) {
 		if (userTo != null) {
-			return new UserEntity(userTo.getId(), userTo.getUserName(), userTo.getPassword(), userTo.getRole());
+			return new UserEntity(userTo.getId(), userTo.getUserName(), userTo.getPassword());
 		}
 		return null;
 	}

@@ -9,11 +9,10 @@ public class UserTo {
 	public UserTo() {
 	}
 
-	public UserTo(Long id, String user, String password, String role) {
+	public UserTo(Long id, String user, String password) {
 		this.id = id;
 		this.userName = user;
 		this.password = password;
-		this.role = role;
 	}
 
 	public Long getId() {
